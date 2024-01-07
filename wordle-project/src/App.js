@@ -1,23 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import { useDispatch } from "react-redux";
+import ToggleHelp from ".redux/actions/ToggleHelp";
+
+
+//Set up local storage for game state
 
 function App() {
+
+  const dispatch = useDispatch();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='help' onClick={() => dispatch(ToggleHelp())}> 
+        <h3>?</h3>
+      </div>
+      {/* <Help/>
+      <Outlet/> */}
     </div>
   );
 }
