@@ -11,6 +11,8 @@ if(!preloadedState) {
 }
 
 export default configureStore({
-    reducer: gameSlice,
-    preloadedState,
+    reducer: {
+        game: gameSlice,
+        preloadedState,
+    }
 });

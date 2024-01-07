@@ -3,20 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import {BrowserRouter, Routes, Route } from "react-router-dom";
 import App from './App';
-import { Provider } from "react-router";
+import { RouterProvider } from "react-router";
 import configureStore from "./redux/store";
 import Main from "./Main";
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={configureStore}>
+    <RouterProvider store={configureStore}>
       <Routes>
         <Route path={"/"} element={<App/>}>
           <Route index element={<Main/>}/>
         </Route>
       </Routes>
-    </Provider>
+    </RouterProvider>
   </BrowserRouter>
   ,
   document.getElementById('root')
