@@ -1,16 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit";
-import initState from "../store/initState";
 import { save, score_load, score_save } from "../reducers/LocalStorage";
 import { clearWarning, deleteLetter, inputLetter, newGame, submitGuess, toggleHelp } from "../actions";
 import C_W from "./WordChecker";
+import randomWords from "random-words";
+
+const generateRandomWord = () => {
+    let theWord = randomWords({ exactly: 1, minLength: 5, maxLength: 5 });
+    while (theWord[0].split('').length !== 5) {
+        theWord = randomWords({ exactly: 1, minLength: 5, maxLength: 5});
+    }
+    return theWord[0];
+};
+
+const initialState = () => {
+    const answer = generateRandomWord().split("");
+    const guesses = Array(6).fill(Array(5).fill(""));
+    return {
+        try: 0,
+        guesses,
+        answer,
+        guessed: "",
+        change: false,
+        end: false,
+        win: false,
+        warn: false,
+        press: false,
+        help: true
+    };
+};
 
 
 const gameSlice = createSlice({
     name: 'game',
-    initialState: initState(),
+    initialState: initialState(),
     reducers: {
         resetGame(state){
-            Object.assign(state, initState());
+            Object.assign(state, initialState());
             save(state);
         },
     },
@@ -21,7 +46,7 @@ const gameSlice = createSlice({
                     save(state); 
                 })
                 .addCase(newGame, (state) => {
-                    const newState = initState();
+                    const newState = initialState();
                     Object.assign(state, { ...newState, help: false}); //reset the game state
                     save(state);
                 })
@@ -97,9 +122,6 @@ const gameSlice = createSlice({
             }
         })
 
-                
-
-   
 
 export const {
   resetGame

@@ -1,7 +1,8 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import { useDispatch } from "react-redux";
-import ToggleHelp from ".redux/actions/ToggleHelp";
+import { toggleHelp } from ".redux/reducers/gameSlice";
+import Help from "./components/Help";
 
 
 //Set up local storage for game state
@@ -12,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className='help' onClick={() => dispatch(ToggleHelp())}> 
+      <div className='help' onClick={() => dispatch(toggleHelp())}> 
         <h3>?</h3>
       </div>
       {/* <Help/>
