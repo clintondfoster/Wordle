@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 // import { useSelector } from 'react-redux';
-import { score_load } from "..redux/reducers/LocalStorage";
+import { score_load } from "../redux/reducers/localStorage";
 import ScoreBar from "./ScoreBar";
 
 function ScoreBoard() {

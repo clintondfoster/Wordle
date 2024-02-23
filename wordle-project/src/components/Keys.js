@@ -1,8 +1,12 @@
 import Key from "./Key";
 import { useDispatch } from "react-redux";
 import { deleteLetter, submitGuess } from "../redux/reducers/gameSlice";
-import { FontAwesomeIcon } from "@fontawesome/react-fontawesome";
-import { faDeleteLeft } from "@fontawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fontawesome/react-fontawesome";
+// import { faDeleteLeft } from "@fontawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBackspace } from '@fortawesome/free-solid-svg-icons';
+
+
 
 function Keys () {
     const keys = 'qwertyuiopasdfghjklzxcvbnm'.split("");
@@ -17,7 +21,7 @@ function Keys () {
             {keyElements}
             <div className="key submit" onClick={() => dispatch(submitGuess())}>Enter</div>
             <div className="key delete" onClick={() => dispatch(deleteLetter())}>
-                <FontAwesomeIcon icon={faDeleteLeft}/>
+                <FontAwesomeIcon icon={faBackspace}/>
             </div>
         </div>
     );

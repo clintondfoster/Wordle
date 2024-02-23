@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { save, score_load, score_save } from "./localStorage";
-// import { clearWarning, deleteLetter, inputLetter, newGame, submitGuess, toggleHelp } from "../actions";
-// import C_W from "./WordChecker";
-import randomWords from "random-words";
+import C_W from "./wordChecker";
+import { generate } from "random-words";
 
 const generateRandomWord = () => {
-    let theWord = randomWords({ exactly: 1, minLength: 5, maxLength: 5 });
+    let theWord = generate({ exactly: 1, minLength: 5, maxLength: 5 });
     while (theWord[0].split('').length !== 5) {
-        theWord = randomWords({ exactly: 1, minLength: 5, maxLength: 5});
+        theWord = generate({ exactly: 1, minLength: 5, maxLength: 5});
     }
     return theWord[0];
 };

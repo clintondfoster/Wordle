@@ -10,9 +10,11 @@ if(!localStorage.getItem('game-state')) {
     score_save({1:0, 2:0, 3:0, 4:0, 5:0, 6:0, lose:0})
 }
 
-export default configureStore({
+const store = configureStore({
     reducer: {
         game: gameReducer,
     },
         preloadedState,
 });
+
+export { store };
