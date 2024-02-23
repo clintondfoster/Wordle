@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import gameReducer from "../reducers/gameSlice";
-import { load, score_save } from "..reducers/localStorage";
+import { load, score_save } from "../reducers/localStorage";
 
 //Attempt to load the existing game state from local storage, otherwise go to initial state
 const preloadedState = localStorage.getItem('game-state') ? load() : undefined; // use undefined to let the slice define the inital state

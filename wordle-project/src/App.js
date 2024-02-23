@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import { useDispatch } from "react-redux";
-import { toggleHelp } from ".redux/reducers/gameSlice";
+import { toggleHelp } from "./redux/reducers/gameSlice";
 import Help from "./components/Help";
 
 
