@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { save, score_load, score_save } from "./localStorage";
 import C_W from "./wordChecker";
 import { generate } from "random-words";
@@ -89,6 +89,7 @@ const gameSlice = createSlice({
                     if(!state.end && activeGuess.includes("") && letterIndex < state.answer.length) {
                         activeGuess[letterIndex] = action.payload; //action.payload should contain the letter to input
                      } else {
+                       // eslint-disable-next-line
                         warn = true;
                         }
         
@@ -118,6 +119,17 @@ const gameSlice = createSlice({
 }
 });
 
+export const selectGameStatus = state => state.game;
+
+
+export const selectGameDetails = createSelector(
+    [selectGameStatus],
+    (game) => ({
+        warning: game.warn,
+        try_cur: game.try,
+        press: game.press,
+    })
+);
 
 export const {
   resetGame,
@@ -130,3 +142,5 @@ export const {
 } = gameSlice.actions
 
 export default gameSlice.reducer;
+
+

@@ -1,6 +1,7 @@
 import GL from "./GL";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { selectGameDetails } from "../redux/reducers/gameSlice";
 
 function Guess(props) {
 
@@ -8,11 +9,7 @@ function Guess(props) {
     let gl_eles = props.vl.map((l, i) => <GL key={i} vl={l} idx={i} gi={props.idx}/>);
 
     //Selectring specific parts fo the game state related to warnings and attempts 
-    const { warning, try_cur, press } = useSelector(state => ({
-        warning: state.game.warn,
-        try_cur: state.game.try,
-        press: state.game.press,
-    }));
+    const { warning, try_cur, press } = useSelector(selectGameDetails);
 
     //State for handling the warning animation/class
     const [wn, setWN] = useState("");
