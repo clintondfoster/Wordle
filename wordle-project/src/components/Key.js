@@ -11,7 +11,7 @@ function Key(props) {
     let style;
     let stop = false;
 
-    if (guessed.included(props.vl)) {
+    if (guessed.includes(props.vl)) {
         if (answer.join('').includes(props.vl)) {
             for (let i = 0; i < cTry; i++) {
                 if (!stop) {
