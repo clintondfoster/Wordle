@@ -6,7 +6,7 @@ import Keys from "./components/Keys";
 import ScoreBoard from "./components/ScoreBoard";
 
 const enterKeys = ['Enter'];
-const backKeys = ['Backspace', 8];
+const backKeys = ['Backspace'];
 
 const useEventListener = (eventName, handler, element = window) => {
     const savedHandler = React.useRef();
@@ -51,16 +51,14 @@ function Main() {
             <h1>Endless Wordle</h1>
             <Guesses />
             <Keys />
-            {end && (
-                <div className="message">
+            {end && <div className="message">
                     <div className="tab" style={{ backgroundColor: color }}>
                         {win && <h1>You Win!!</h1>}
-                        {end && !win && <h1>You Lose. The Answer was {answer.join('')}</h1>}
+                        {end && !win ? <h1>You Lose. The Answer was {answer.join('')}</h1> : ""}
                         <ScoreBoard />
                         <h2 onClick={createNewGame}>Play Again?</h2>
                     </div>
-                </div>
-            )}
+                </div>}
         </div>
     );
 }

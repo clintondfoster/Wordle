@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 function GL (props) {
 
-    //Updated seleectors to access nested state under 'game'
+    //Updated selectors to access nested state under 'game'
     const game = useSelector(state => state.game);
     const { cTry, guesses, answer } = game;
 
