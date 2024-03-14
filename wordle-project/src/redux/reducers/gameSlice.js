@@ -1,6 +1,6 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { save, score_load, score_save } from "./localStorage";
-import C_W from "./wordChecker";
+import checkWord from "./wordChecker";
 import { generate } from "random-words";
 
 const generateRandomWord = () => {
@@ -8,12 +8,14 @@ const generateRandomWord = () => {
     while (theWord[0].split('').length !== 5) {
         theWord = generate({ exactly: 1, minLength: 5, maxLength: 5});
     }
+    console.log("Generated word:", theWord[0]);
     return theWord[0];
 };
 
+
 const initialState = () => {
     const answer = generateRandomWord().split("");
-    const guesses = Array(6).fill(Array(5).fill(""));
+    const guesses = Array(6).fill(null).map(() => Array(5).fill(""));
     return {
         try: 0,
         guesses,
@@ -53,8 +55,10 @@ const gameSlice = createSlice({
             let addLetters = state.guessed;
             let currentScores = score_load();
 
+        
+
             //Checks that current guess does not contain empty slots, the game hasn't ended, and it is a valid word
-            if (state.guesses[state.try].indexOf('') === - 1 && !state.end && C_W(state.guesses[state.try].join(''))) {
+            if (state.guesses[state.try].indexOf('') === - 1 && !state.end && checkWord(state.guesses[state.try].join(''))) {
                 addLetters += state.guesses[state.try].join('');
 
                 //Win Condition Check
@@ -86,6 +90,7 @@ const gameSlice = createSlice({
         inputLetter(state, action) {
             const activeGuess = state.guesses[state.try];
             const letterIndex = activeGuess.indexOf('');
+
     
                 if (!state.end && activeGuess.includes("") && letterIndex < state.answer.length) {
                     activeGuess[letterIndex] = action.payload; //action.payload should contain the letter to input
@@ -102,12 +107,11 @@ const gameSlice = createSlice({
         },
         deleteLetter(state) {
             if (!state.end) {
-                const activeGuess = state.guesses[state.try];
-                let indexToRemove = activeGuess.lastIndexOf('');
-                indexToRemove = indexToRemove !== - 1 ? indexToRemove - 1 : activeGuess.length - 1;
-
-                if (indexToRemove >= 0) {
-                    activeGuess[indexToRemove] = ''; //delete the last non empty letter
+                const activeGuess = [...state.guesses[state.try]];
+                let nonEmptyIdx = activeGuess.lastIndexOf(activeGuess.find(letter => letter !== ""));
+                if (nonEmptyIdx !== -1) {
+                    activeGuess[nonEmptyIdx] = '';
+                    state.guesses[state.try] = activeGuess;
                 }
 
                 state.change = !state.change;

@@ -2,8 +2,8 @@ import { Words } from '../../assets/Words';
 
 // let WordsSet;
 
-export default function C_W (word) {
-    console.log('C_W called with:', word);
+export default function checkWord (word) {
+    console.log('checkWord called with:', word);
 
     return Words.some((x) => x === word)
     // //initialize WordsSet on the first call to C_W

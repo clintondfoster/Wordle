@@ -210,7 +210,7 @@
     margin: 0;
     width: 55px;
   }
-  .help {
+  /* .help {
     height: 100%;
     width: 100%;
     position: fixed;
@@ -222,7 +222,7 @@
     align-items: center;
     color: white;
     z-index: 100;
-  }
+  } */
   .help .close {
     position: absolute;
     top: 0;
