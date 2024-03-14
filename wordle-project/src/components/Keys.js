@@ -7,17 +7,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackspace } from '@fortawesome/free-solid-svg-icons';
 
 
-
 function Keys () {
     const keys = 'qwertyuiopasdfghjklzxcvbnm'.split("");
     const dispatch = useDispatch();
 
-    let keyElements = keys.map((k, i) => 
-    <Key key={i} vl={k}/>
+    let keyElements = keys.map((k, idx) => 
+    <Key key={idx} vl={k}/>
     );
 
     return (
-        <div className={'keys'}>
+        <div className={"keys"}>
             {keyElements}
             <div className="key submit" onClick={() => dispatch(submitGuess())}>Enter</div>
             <div className="key delete" onClick={() => dispatch(deleteLetter())}>

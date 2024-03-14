@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// import { useSelector } from 'react-redux';
 import { score_load } from "../redux/reducers/localStorage";
 import ScoreBar from "./ScoreBar";
 
 function ScoreBoard() {
     const [scores, setScores] = useState([]);
-    const [ts, setTS] = useState(0);
+    const [totS, setTotS] = useState(0);
 
-    //Load scores from Local storage on component mount
+    //Access any current scores 
     useEffect(() => {
         let newScores = score_load();
         let scoreList = [];
@@ -17,19 +16,20 @@ function ScoreBoard() {
         setScores(scoreList);
     }, []);
 
-    //Calculate total tries
+    //Total tries
     useEffect(() => {
+        
         let totalTries = scores.reduce((acc, score) => acc + score[1], 0);
-        setTS(totalTries);
+        setTotS(totalTries);
     }, [scores]);
 
-    let eles = scores.map((it, i) => 
-    <ScoreBar key={i} score={`Try ${it[0]}`} fill={it[1]/ ts}/>
+    let tryCalc = scores.map((tries, i) => 
+        <ScoreBar key={i} score={`Try ${tries[0]}`} fill={tries[1]/ totS}/>
     );
 
     return (
         <div className="scores">
-            {eles}
+            {tryCalc}
         </div>
     );
 }

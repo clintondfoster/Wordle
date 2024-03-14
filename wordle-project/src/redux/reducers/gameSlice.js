@@ -53,15 +53,18 @@ const gameSlice = createSlice({
             let addLetters = state.guessed;
             let currentScores = score_load();
 
-            if (state.guesses[state.try].indexOf('') === -1 && !state.end && C_W(state.guesses[state.try].join(''))) {
+            //Checks that current guess does not contain empty slots, the game hasn't ended, and it is a valid word
+            if (state.guesses[state.try].indexOf('') === - 1 && !state.end && C_W(state.guesses[state.try].join(''))) {
                 addLetters += state.guesses[state.try].join('');
+
+                //Win Condition Check
                 if (state.guesses[state.try].join('') === state.answer.join('')) {
                     win = true;
                     end = true;
                     currentScores[state.try + 1] = (currentScores[state.try + 1] || 0) + 1;
                     score_save(currentScores);
                 }
-
+                //End game on final attempt
                 if (newTry === 6) {
                     end = true;
                     if (!win) {
@@ -69,7 +72,6 @@ const gameSlice = createSlice({
                         score_save(currentScores);
                     }
                 }
-
                 state.try = newTry;
                 state.win = win;
                 state.end = end;
@@ -83,19 +85,16 @@ const gameSlice = createSlice({
         },
         inputLetter(state, action) {
             const activeGuess = state.guesses[state.try];
-                    const letterIndex = activeGuess.indexOf('');
-                    let warn = false;
-        
-                    if(!state.end && activeGuess.includes("") && letterIndex < state.answer.length) {
-                        activeGuess[letterIndex] = action.payload; //action.payload should contain the letter to input
-                     } else {
-                       // eslint-disable-next-line
-                        warn = true;
-                        }
-        
-                    state.guesses[state.try] = activeGuess;
-                    state.change = !state.change;
-                    save(state);
+            const letterIndex = activeGuess.indexOf('');
+    
+                if (!state.end && activeGuess.includes("") && letterIndex < state.answer.length) {
+                    activeGuess[letterIndex] = action.payload; //action.payload should contain the letter to input
+                 } else {
+                    state.warn = true;
+                }
+                state.guesses[state.try] = activeGuess;
+                state.change = !state.change;
+            save(state);
         },
         clearWarning(state) {
             state.warn = false; //clear warning flag
@@ -105,22 +104,20 @@ const gameSlice = createSlice({
             if (!state.end) {
                 const activeGuess = state.guesses[state.try];
                 let indexToRemove = activeGuess.lastIndexOf('');
-                indexToRemove = indexToRemove !== -1 ? indexToRemove -1 : activeGuess.length - 1;
+                indexToRemove = indexToRemove !== - 1 ? indexToRemove - 1 : activeGuess.length - 1;
 
                 if (indexToRemove >= 0) {
                     activeGuess[indexToRemove] = ''; //delete the last non empty letter
                 }
 
-                state.guesses[state.try] = activeGuess;
                 state.change = !state.change;
                 save(state);
-        }
-    },
-}
+            }
+        },
+    }
 });
 
 export const selectGameStatus = state => state.game;
-
 
 export const selectGameDetails = createSelector(
     [selectGameStatus],
