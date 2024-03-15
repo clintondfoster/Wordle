@@ -108,13 +108,30 @@ const gameSlice = createSlice({
         deleteLetter(state) {
             if (!state.end) {
                 const activeGuess = [...state.guesses[state.try]];
-                let nonEmptyIdx = activeGuess.lastIndexOf(activeGuess.find(letter => letter !== ""));
+
+                //interaing backwards to find the last non-empty index
+                let nonEmptyIdx = -1;
+                for (let i = activeGuess.length - 1; i >= 0; i--) {
+                    if (activeGuess[i] !== "") {
+                        nonEmptyIdx = i;
+                        break;
+                    }
+                };
+
+                //if a non-empty index is found, set it to empty
                 if (nonEmptyIdx !== -1) {
-                    activeGuess[nonEmptyIdx] = '';
+                    activeGuess[nonEmptyIdx] = "";
                     state.guesses[state.try] = activeGuess;
+                    state.change = !state.change;
                 }
 
-                state.change = !state.change;
+                // let nonEmptyIdx = activeGuess.lastIndexOf(activeGuess.find(letter => letter !== ""));
+                // if (nonEmptyIdx !== -1) {
+                //     activeGuess[nonEmptyIdx] = '';
+                //     state.guesses[state.try] = activeGuess;
+                // } 
+
+                // state.change = !state.change;
                 save(state);
             }
         },

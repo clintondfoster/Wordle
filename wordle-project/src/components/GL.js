@@ -5,13 +5,14 @@ import "../less/index.less";
 
 function GL (props) {
 
+
     //Access current game from game slice
     const game = useSelector(state => state.game);
     const { try_cur, guesses, answer } = game;
 
-    console.log("answer from GL", answer)
-    console.log("try_cur from GL", try_cur)
-    console.log("guesses from GL", guesses)
+    // console.log("answer from GL", answer)
+    // console.log("try_cur from GL", try_cur)
+    // console.log("guesses from GL", guesses)
 
     //Check current guess 
     const currentGuess = guesses[props.gi];
@@ -41,7 +42,8 @@ function GL (props) {
         } 
     }
 
-// console.log("style", style)
+console.log("style", style)
+
 //Determines to flip the letter tile
 let flipped = try_cur !== 0 && props.gi < try_cur ? "flipped" : "";
 
