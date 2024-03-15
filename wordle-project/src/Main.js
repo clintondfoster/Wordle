@@ -48,13 +48,13 @@ function Main() {
 
     return (
         <div className="contain">
-            <h1>Endless Wordle</h1>
+            <h1>New Wordle</h1>
             <Guesses />
             <Keys />
             {end && <div className="message">
                     <div className="tab" style={{ backgroundColor: color }}>
                         {win && <h1>You Win!!</h1>}
-                        {end && !win ? <h1>You Lose. The Answer was {answer.join('')}</h1> : ""}
+                        {end && !win ? <h1>Maybe next time. The Answer was {answer.join('')}.</h1> : ""}
                         <ScoreBoard />
                         <h2 onClick={createNewGame}>Play Again?</h2>
                     </div>

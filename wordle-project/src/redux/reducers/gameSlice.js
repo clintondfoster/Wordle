@@ -13,6 +13,7 @@ const generateRandomWord = () => {
 };
 
 
+
 const initialState = () => {
     const answer = generateRandomWord().split("");
     const guesses = Array(6).fill(null).map(() => Array(5).fill(""));
@@ -37,6 +38,7 @@ const gameSlice = createSlice({
     reducers: {
         resetGame(state){
             Object.assign(state, initialState());
+            state.help = false;
             save(state);
         },
         toggleHelp(state) {
@@ -124,14 +126,6 @@ const gameSlice = createSlice({
                     state.guesses[state.try] = activeGuess;
                     state.change = !state.change;
                 }
-
-                // let nonEmptyIdx = activeGuess.lastIndexOf(activeGuess.find(letter => letter !== ""));
-                // if (nonEmptyIdx !== -1) {
-                //     activeGuess[nonEmptyIdx] = '';
-                //     state.guesses[state.try] = activeGuess;
-                // } 
-
-                // state.change = !state.change;
                 save(state);
             }
         },

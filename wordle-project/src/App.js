@@ -1,9 +1,10 @@
 // import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import { useDispatch } from "react-redux";
 import { toggleHelp } from "./redux/reducers/gameSlice";
 import Help from "./components/Help";
 import { Outlet } from "react-router-dom";
+import "./less/index.css";
 
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className='help' onClick={() => dispatch(toggleHelp())}> 
+      <div className='hp' onClick={() => dispatch(toggleHelp())}> 
         <h3>?</h3>
       </div>
       <Help/>
