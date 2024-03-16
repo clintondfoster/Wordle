@@ -2,21 +2,21 @@ import React from 'react';
 import { StyleLabels } from "../assets/StyleLabels";
 import { useSelector } from "react-redux";
 import "../less/index.less";
+import { selectGameDetails } from '../redux/reducers/gameSlice';
 
 function GL (props) {
 
+    // const game = useSelector(state => state.game);
+    // const { try_cur, guesses, answer } = game;
 
-    //Access current game from game slice
-    const game = useSelector(state => state.game);
-    const { try_cur, guesses, answer } = game;
-
+    const { try_cur, guesses, answer } = useSelector(selectGameDetails);
     // console.log("answer from GL", answer)
     // console.log("try_cur from GL", try_cur)
     // console.log("guesses from GL", guesses)
 
     //Check current guess 
     const currentGuess = guesses[props.gi];
-    let style;
+    let style 
 
     let indicesAnswer = [];
     answer.forEach((char, idx) => {
@@ -37,12 +37,14 @@ function GL (props) {
                     style = StyleLabels.okay;
                 } else {
                     style = StyleLabels.bad;
+
+                    console.log(style)
                 }
             }
         } 
     }
 
-console.log("style", style)
+console.log("style in GL", style)
 
 //Determines to flip the letter tile
 let flipped = try_cur !== 0 && props.gi < try_cur ? "flipped" : "";

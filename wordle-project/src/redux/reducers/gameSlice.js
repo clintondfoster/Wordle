@@ -13,7 +13,6 @@ const generateRandomWord = () => {
 };
 
 
-
 const initialState = () => {
     const answer = generateRandomWord().split("");
     const guesses = Array(6).fill(null).map(() => Array(5).fill(""));
@@ -57,8 +56,6 @@ const gameSlice = createSlice({
             let addLetters = state.guessed;
             let currentScores = score_load();
 
-        
-
             //Checks that current guess does not contain empty slots, the game hasn't ended, and it is a valid word
             if (state.guesses[state.try].indexOf('') === - 1 && !state.end && checkWord(state.guesses[state.try].join(''))) {
                 addLetters += state.guesses[state.try].join('');
@@ -92,7 +89,6 @@ const gameSlice = createSlice({
         inputLetter(state, action) {
             const activeGuess = state.guesses[state.try];
             const letterIndex = activeGuess.indexOf('');
-
     
                 if (!state.end && activeGuess.includes("") && letterIndex < state.answer.length) {
                     activeGuess[letterIndex] = action.payload; //action.payload should contain the letter to input
@@ -140,6 +136,8 @@ export const selectGameDetails = createSelector(
         warning: game.warn,
         try_cur: game.try,
         press: game.press,
+        answer: game.answer,
+        guesses: game.guesses
     })
 );
 
