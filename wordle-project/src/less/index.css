@@ -309,6 +309,14 @@
     width: 35px;
     text-align: center;
   }
+  .scores h2 {
+    width: 30px;
+    text-align: center;
+    position: relative;
+    z-index: 100;
+    background-color: white;
+    color: black;
+  }
   .scores .bar {
     width: 200px;
     height: 10px;

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetGame, submitGuess, inputLetter, deleteLetter } from "./redux/reducers/gameSlice";
+import { resetGame, submitGuess, inputLetter, deleteLetter, selectGameDetails } from "./redux/reducers/gameSlice";
 import Guesses from "./components/Guesses";
 import Keys from "./components/Keys";
 import ScoreBoard from "./components/ScoreBoard";
@@ -27,6 +27,9 @@ const useEventListener = (eventName, handler, element = window) => {
 function Main() {
     const dispatch = useDispatch();
     const { win, end, answer } = useSelector((state) => state.game);
+    const { try_cur } = useSelector(selectGameDetails);
+    const [showMessage, setShowMessage] = useState(false)
+    console.log("try_cur in main", try_cur)
 
     const handler = ({ key }) => {
         if ('abcdefghijklmnopqrstuvwxyz'.split('').includes(key.toLowerCase())) {
@@ -40,9 +43,16 @@ function Main() {
 
     useEventListener("keydown", handler);
 
+    useEffect(() => {
+        if (end) {
+            setTimeout(() => setShowMessage(true), 3000);
+        }
+    }, [end]);
+
     let color = win ? "green" : "red";
 
     const createNewGame = () => {
+        setShowMessage(false);
         dispatch(resetGame());
     };
 
@@ -51,10 +61,12 @@ function Main() {
             <h1>New Wordle</h1>
             <Guesses />
             <Keys />
-            {end && <div className="message">
+            {showMessage && <div className="message">
                     <div className="tab" style={{ backgroundColor: color }}>
                         {win && <h1>You Win!!</h1>}
-                        {end && !win ? <h1>Maybe next time. The Answer was {answer.join('')}.</h1> : ""}
+                        {win && <h2>You won in {try_cur} tries!</h2>}
+                        {end && !win ? <h1>Better luck next time. </h1> : ""}
+                        {end && !win ? <h2>The Answer was {answer.join('')}.</h2> : ""}
                         <ScoreBoard />
                         <h2 onClick={createNewGame}>Play Again?</h2>
                     </div>
