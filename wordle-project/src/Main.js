@@ -29,7 +29,6 @@ function Main() {
     const { win, end, answer } = useSelector((state) => state.game);
     const { try_cur } = useSelector(selectGameDetails);
     const [showMessage, setShowMessage] = useState(false)
-    console.log("try_cur in main", try_cur)
 
     const handler = ({ key }) => {
         if ('abcdefghijklmnopqrstuvwxyz'.split('').includes(key.toLowerCase())) {

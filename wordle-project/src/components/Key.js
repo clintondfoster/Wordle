@@ -3,9 +3,8 @@ import { inputLetter } from "../redux/reducers/gameSlice";
 import { StyleLabels } from "../assets/StyleLabels";
 
 function Key (props) {
-    //Access current game from game slice
-    const {guesses, answer, try: try_cur, guessed } = useSelector(state => state.game);
 
+    const {guesses, answer, try: try_cur, guessed } = useSelector(state => state.game);
     const dispatch = useDispatch();
 
     let style;
@@ -23,15 +22,15 @@ function Key (props) {
                         style = StyleLabels.okay;
                     }
                 }
-            }
+            };
         } else {
             style = StyleLabels.bad;
         }
-    }
+    };
         return (
             <div className={"key " + props.vl} style={style}
                 onClick={() => dispatch(inputLetter(props.vl))}>{props.vl.toUpperCase()}</div>
-        )
-        }
+            )
+        };
     
         export default Key;

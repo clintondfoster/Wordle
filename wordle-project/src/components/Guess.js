@@ -13,8 +13,6 @@ function Guess (props) {
     const { warning, try_cur, press } = useSelector(selectGameDetails);
     const [wn, setWN] = useState("");
 
-    console.log("warn in guess", warning)
-
     //Manage the warning state and animation timing
     useEffect(() => {
         setWN("dull");
@@ -35,6 +33,6 @@ function Guess (props) {
             {gl_eles}
         </div>
     )
-}
+};
 
     export default Guess;

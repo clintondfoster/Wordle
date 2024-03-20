@@ -6,12 +6,7 @@ import { selectGameDetails } from '../redux/reducers/gameSlice';
 
 function GL (props) {
 
-    // const game = useSelector(state => state.game);
-    // const { try_cur, guesses, answer } = game;
-
     const { try_cur, answer } = useSelector(selectGameDetails);
-    console.log("answer from GL", answer)
-    // console.log("try_cur from GL", try_cur)
     let style;
 
     let indicesAnswer = [];
@@ -20,8 +15,6 @@ function GL (props) {
             indicesAnswer.push(idx);
         }
     });
-    console.log("indicesAnswer from GL", indicesAnswer)
-
 
     //Style logic for submitted guessess
     if (try_cur !== 0 && props.gi < try_cur) {
@@ -35,22 +28,20 @@ function GL (props) {
         } else {
             style = StyleLabels.bad;
         }
-    }
+    };
 
-
-//Animation flip for current guess
+//Animation CSS for current guess
 let flipped = try_cur !== 0 && props.gi < try_cur ? "flipped" : "";
-
 
 return (
     <div className={"gl " + flipped}>
         <div className={"flipper d" + props.idx}>
-            <div className="front" >{props.vl}</div>
+            <div className="front">{props.vl}</div>
             <div className="back" style={style}>{props.vl}</div>
         </div>
     </div>
     )
-}
+};
 
 export default GL;
 

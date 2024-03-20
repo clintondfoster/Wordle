@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { score_load } from "../redux/reducers/localStorage";
 import ScoreBar from "./ScoreBar";
-// import { useSelector } from 'react-redux';
-// import { selectGameDetails } from '../redux/reducers/gameSlice';
 
 function ScoreBoard() {
     const [scores, setScores] = useState([]);
     const [totalScore, setTotalScore] = useState(0);
-
-    // const { try_cur, win } = useSelector(selectGameDetails);
 
     //Access any current scores 
     useEffect(() => {
@@ -20,7 +16,7 @@ function ScoreBoard() {
         setScores(scoreList);
     }, []);
 
-    //Total tries
+    //Total tries calculation
     useEffect(() => {
         let totalTries = scores.reduce((acc, score) => acc + score[1], 0);
         setTotalScore(totalTries);

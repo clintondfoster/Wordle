@@ -8,10 +8,8 @@ const generateRandomWord = () => {
     while (theWord[0].split('').length !== 5) {
         theWord = generate({ exactly: 1, minLength: 5, maxLength: 5});
     }
-    console.log("Generated word:", theWord[0]);
     return theWord[0];
 };
-
 
 const initialState = () => {
     const answer = generateRandomWord().split("");
@@ -29,7 +27,6 @@ const initialState = () => {
         help: true
     };
 };
-
 
 const gameSlice = createSlice({
     name: 'game',
