@@ -1,11 +1,13 @@
+import { initialState } from "./gameSlice";
+
 //retrives game state from local storage, allows players to continue from where they left off
 export const load = function () {
     try {
         const gameState = localStorage.getItem('game-state');
-        return gameState ? JSON.parse(gameState) : undefined;
+        return gameState ? JSON.parse(gameState) : initialState();
     } catch (e) {
         console.error("Error loading game state:", e);
-        return undefined;
+        return initialState();
     }
 }
 
