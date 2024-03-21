@@ -47,39 +47,34 @@ const gameSlice = createSlice({
                     save(state);
         },
         submitGuess(state, action) {
-            let newTry = state.try + 1;
-            let win = state.win;
-            let end = state.end;
-            let addLetters = state.guessed;
-            let currentScores = score_load();
+            const currentGuess = state.guesses[state.try].join('');
 
-            //Checks that current guess does not contain empty slots, the game hasn't ended, and it is a valid word
-            if (state.guesses[state.try].indexOf('') === - 1 && !state.end && checkWord(state.guesses[state.try].join(''))) {
-                addLetters += state.guesses[state.try].join('');
+            if (currentGuess.length === 5) {
+                if (checkWord(currentGuess)) {
+                    let newTry = state.try + 1;
+                    let win = state.win;
+                    let end = state.end;
+                    let currentScores = score_load();
 
-                //Win Condition Check
-                if (state.guesses[state.try].join('') === state.answer.join('')) {
-                    win = true;
-                    end = true;
-                    currentScores[state.try + 1] = (currentScores[state.try + 1] || 0) + 1;
+                    if (currentGuess === state.answer.join("")) {
+                        win = true;
+                        end = true;
+                        currentScores[state.try + 1] = (currentScores[state.try + 1] || 0) + 1;
+                    };
+                    if (newTry === 6) {
+                        end = true;
+                        if (!win) {
+                            currentScores.lose = (currentScores.lose || 0) + 1;
+                        }
+                    };
                     score_save(currentScores);
+                    state.try = newTry;
+                    state.win = win;
+                    state.end = end;
+                } else {
+                    state.warn = true;
                 }
-                //End game on final attempt
-                if (newTry === 6) {
-                    end = true;
-                    if (!win) {
-                        currentScores.lose = (currentScores.lose || 0) + 1;
-                        score_save(currentScores);
-                    }
-                }
-                state.try = newTry;
-                state.win = win;
-                state.end = end;
-                state.guessed = addLetters;
-                state.warn = false;
-            } else {
-                state.warn = true;
-            }
+            };
             state.change = !state.change;
             save(state);
         },

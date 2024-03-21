@@ -12,13 +12,14 @@ function Guess (props) {
 
     //Check if player has any saved game details
     const dispatch = useDispatch();
-    const { warning, try_cur, press } = useSelector(selectGameDetails);
+    const { warning, try_cur, press, guesses } = useSelector(selectGameDetails);
     const [wn, setWN] = useState("");
     const [showPopup, setShowPopup] = useState(false);
+    const currentGuess = guesses[props.idx];
 
     //Manage the warning state and animation timing
     useEffect(() => {
-        if (try_cur === props.idx) {
+        if (try_cur === props.idx && currentGuess.every(char => char !== "")) {
             if (warning) {
                 setShowPopup(true);
                 setWN("warning");
@@ -31,7 +32,7 @@ function Guess (props) {
                 setWN("dull");
             }
         }
-    }, [press, warning, try_cur, props.idx, dispatch]);
+    }, [press, warning, try_cur, props.idx, dispatch, currentGuess]);
 
     return (
         <div className={"guess " + wn}>
