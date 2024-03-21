@@ -47,34 +47,41 @@ const gameSlice = createSlice({
                     save(state);
         },
         submitGuess(state, action) {
-            const currentGuess = state.guesses[state.try].join('');
+            let currentGuess = state.guesses[state.try].join('');
+            let newTry = state.try + 1;
+            let win = state.win;
+            let end = state.end;
+            let currentScores = score_load();
 
-            if (currentGuess.length === 5) {
-                if (checkWord(currentGuess)) {
-                    let newTry = state.try + 1;
-                    let win = state.win;
-                    let end = state.end;
-                    let currentScores = score_load();
-
+            if (currentGuess.length === 5 && !state.end && checkWord(currentGuess)) {
+                //update guessed letters
+                currentGuess.split('').forEach(letter => {
+                    if (!state.guessed.includes(letter)) {
+                        state.guessed += letter
+                    }
+                })
+                   //win condition check
                     if (currentGuess === state.answer.join("")) {
                         win = true;
                         end = true;
                         currentScores[state.try + 1] = (currentScores[state.try + 1] || 0) + 1;
+                        score_save(currentScores);
                     };
+                    //end game on final attempt
                     if (newTry === 6) {
                         end = true;
                         if (!win) {
                             currentScores.lose = (currentScores.lose || 0) + 1;
+                            score_save(currentScores)
                         }
-                    };
-                    score_save(currentScores);
+                    }
                     state.try = newTry;
                     state.win = win;
                     state.end = end;
+                    state.warn = false;
                 } else {
                     state.warn = true;
                 }
-            };
             state.change = !state.change;
             save(state);
         },
