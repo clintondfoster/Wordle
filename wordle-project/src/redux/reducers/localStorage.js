@@ -4,25 +4,36 @@ import { initialState } from "./gameSlice";
 export const load = function () {
     try {
         const gameState = localStorage.getItem('game-state');
-        return gameState ? JSON.parse(gameState) : initialState();
+        if (gameState === null || gameState === "undefined") {
+            return initialState();
+        }
+        return JSON.parse(gameState);
     } catch (e) {
         console.error("Error loading game state:", e);
         return initialState();
     }
 }
 
-
 //saves the current game state to local storage
 export const save = function(obj) {
-    localStorage["game-state"] = JSON.stringify(obj);
+    localStorage.setItem('gameState', JSON.stringify(obj));
 };
 
-//retrievees the game's score data
+//retrieves the game's score data
 export const score_load = function(){
-    return JSON.parse(localStorage["score"]);
+    try {
+        const score = localStorage.getItem('score');
+        if (score === null || score === "undefined") {
+            return {};
+        }
+        return JSON.parse(score);
+    } catch (e)  {
+        console.error("error loading scores", e)
+        return {};
+    }
 }
 
 //saves the current scores
 export const score_save = function(obj){
-    localStorage["score"] = JSON.stringify(obj);
+    localStorage.setItem('score', JSON.stringify(obj));
 }
