@@ -11,7 +11,7 @@ const generateRandomWord = () => {
     return theWord[0];
 };
 
-const initialState = () => {
+export const initialState = () => {
     const answer = generateRandomWord().split("");
     const guesses = Array(6).fill(null).map(() => Array(5).fill(""));
     return {

@@ -159,6 +159,17 @@
   .guess .gl .back {
     transform: rotateX(180deg);
   }
+  .popup {
+    position: absolute;
+    top: 20px;  
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f44336; 
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 10;
+}
   .keys {
     display: flex;
     justify-content: center;
